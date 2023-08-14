@@ -21,7 +21,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <logback-classic.version>1.2.11</logback-classic.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
     </properties>
@@ -387,6 +387,25 @@
             <version>${logback-classic.version}</version>
         </dependency>
 
+        <!-- This dependency holds all the code extensions that OpenSRP will build on top of Hapi-Fhir-->
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>location</artifactId>
+            <version>0.0.8-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>practitioner</artifactId>
+            <version>0.0.12-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>configuration</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -426,7 +445,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>11</release>
+                    <release>17</release>
                 </configuration>
             </plugin>
 
