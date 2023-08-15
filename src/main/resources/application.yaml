@@ -14,10 +14,10 @@ spring:
     check-location: false
     baselineOnMigrate: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/hapi?serverName=postgres_hapi
+    url: jdbc:postgresql://localhost:54320/hapi?serverName=postgres_hapi
     #url: jdbc:h2:mem:test_mem
-    username: postgres
-    password: root
+    username: hapi
+    password: hapi
     driverClassName: org.postgresql.Driver
     max-active: 15
 
