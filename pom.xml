@@ -174,12 +174,17 @@
         </dependency>
 
         <!-- Needed for JEE/Servlet support -->
+<!--        <dependency>-->
+<!--            <groupId>javax.servlet</groupId>-->
+<!--            <artifactId>javax.servlet-api</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
+            <artifactId>servlet-api</artifactId>
+            <version>3.1.0</version>
         </dependency>
-
         <!-- If you are using HAPI narrative generation, you will need to include Thymeleaf as well. Otherwise the following can be omitted. -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
