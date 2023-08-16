@@ -1,11 +1,5 @@
 version: "3"
 services:
-  hapi-fhir-jpaserver-start:
-    build: .
-    container_name: hapi-fhir-jpaserver-start
-    depends_on:
-      - hapi-fhir-postgres
-
   hapi-fhir-postgres:
     image: postgres:13-alpine
     container_name: hapi-fhir-postgres
@@ -18,5 +12,11 @@ services:
       - "54320:5432"
     volumes:
       - hapi-fhir-postgres:/var/lib/postgresql/data
+
+  hapi-fhir-jpaserver-start:
+    build: .
+    container_name: hapi-fhir-jpaserver-start
+    depends_on:
+      - hapi-fhir-postgres
 volumes:
   hapi-fhir-postgres:
