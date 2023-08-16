@@ -1,20 +1,58 @@
 version: "3"
 services:
+  postgres_keycloak:
+    image: postgres
+    container_name: keycloak-postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    restart: unless-stopped
+    ports:
+      - "54321:5432"
+    volumes:
+      - keycloak_postgres_data:/var/lib/postgresql/data
+
+  postgres_hapi:
+    image: postgres
+    container_name: hapi-postgres
+    environment:
+      POSTGRES_DB: hapi
+      POSTGRES_USER: hapi
+      POSTGRES_PASSWORD: hapi
+      restart: unless-stopped
+    ports:
+      - "54320:5432"
+    volumes:
+      - hapi_postgres_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: jboss/keycloak:latest
+    container_name: keycloak
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres_keycloak
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
+    ports:
+      - "8081:8080"
+      - "8443:8443"
+    restart: unless-stopped
+    depends_on:
+      - postgres_keycloak
+
   hapi-fhir-jpaserver-start:
     build: .
     container_name: hapi-fhir-jpaserver-start
     restart: on-failure
+    depends_on:
+      - postgres_hapi
     ports:
-      - "8080:8080"
-  hapi-fhir-postgres:
-    image: postgres:13-alpine
-    container_name: hapi-fhir-postgres
-    restart: always
-    environment:
-      POSTGRES_DB: "hapi"
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "admin"
-    volumes:
-      - hapi-fhir-postgres:/var/lib/postgresql/data
+      - "8082:8080"
+
 volumes:
-  hapi-fhir-postgres:
+  keycloak_postgres_data:
+  hapi_postgres_data:
