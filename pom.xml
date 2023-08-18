@@ -24,6 +24,7 @@
         <java.version>11</java.version>
         <logback-classic.version>1.2.11</logback-classic.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
+        <jetty.http.port>8082</jetty.http.port>
     </properties>
 
     <prerequisites>
@@ -59,8 +60,8 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-          <groupId>com.microsoft.sqlserver</groupId>
-          <artifactId>mssql-jdbc</artifactId>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -173,12 +174,18 @@
         </dependency>
 
         <!-- Needed for JEE/Servlet support -->
+<!--        <dependency>-->
+<!--            <groupId>javax.servlet</groupId>-->
+<!--            <artifactId>javax.servlet-api</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- If you are using HAPI narrative generation, you will need to include Thymeleaf as well. Otherwise the following can be omitted. -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
@@ -299,6 +306,24 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- This dependency holds all the code extensions that OpenSRP will build on top of Hapi-Fhir-->
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>location</artifactId>
+            <version>0.0.8-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>practitioner</artifactId>
+            <version>0.0.12-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>configuration</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!--
         For some reason JavaDoc crashed during site generation unless we have this dependency
@@ -377,6 +402,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-api.version}</version>
@@ -391,6 +422,49 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>${logback-classic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.skobow</groupId>
+            <artifactId>apikey-authentication-spring-boot-autoconfigure</artifactId>
+            <version>0.6.1</version>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.skobow</groupId>
+            <artifactId>apikey-authentication-spring-boot-autoconfigure</artifactId>
+            <version>0.6.1</version>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.skobow</groupId>
+            <artifactId>apikey-authentication-spring-boot-autoconfigure</artifactId>
+            <version>0.6.1</version>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.skobow</groupId>
+            <artifactId>apikey-authentication-spring-boot-autoconfigure</artifactId>
+            <version>0.6.1</version>
+            <scope>import</scope>
+        </dependency>
+
+        <!-- This dependency holds all the code extensions that OpenSRP will build on top of Hapi-Fhir-->
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>location</artifactId>
+            <version>0.0.8-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>practitioner</artifactId>
+            <version>0.0.12-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.smartregister.hapi-fhir-opensrp-extensions</groupId>
+            <artifactId>configuration</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
@@ -472,6 +546,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>10.0.7</version>
+                <configuration>
+                    <httpConnector>
+                        <!--host>localhost</host-->
+                        <port>8082</port>
+                    </httpConnector>
+                </configuration>
             </plugin>
 
             <plugin>

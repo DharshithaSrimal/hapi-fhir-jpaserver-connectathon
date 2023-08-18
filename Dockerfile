@@ -12,13 +12,13 @@ COPY src/ /tmp/hapi-fhir-jpaserver-starter/src/
 RUN mvn clean install -DskipTests -Djdk.lang.Process.launchMechanism=vfork
 
 FROM build-hapi AS build-distroless
-RUN mvn package spring-boot:repackage -Pboot
+RUN mvn package spring-boot:repackage -Pboot -DskipTests
 RUN mkdir /app && cp /tmp/hapi-fhir-jpaserver-starter/target/ROOT.war /app/main.war
 
 
 ########### bitnami tomcat version is suitable for debugging and comes with a shell
 ########### it can be built using eg. `docker build --target tomcat .`
-FROM bitnami/tomcat:9.0 AS tomcat
+FROM bitnami/tomcat:9.0.74 AS tomcat
 
 RUN rm -rf /opt/bitnami/tomcat/webapps/ROOT && \
     mkdir -p /opt/bitnami/hapi/data/hapi/lucenefiles && \
